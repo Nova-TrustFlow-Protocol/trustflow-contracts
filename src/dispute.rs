@@ -1,5 +1,5 @@
 use soroban_sdk::{contractimpl, token, Address, Env, String};
-use crate::{DataKey, EscrowConfig, EscrowState, TrustFlowContract, TrustFlowContractClient};
+use crate::{DataKey, EscrowConfig, EscrowState, TrustFlowContract, TrustFlowContractClient, TrustFlowContractArgs};
 
 #[contractimpl]
 impl TrustFlowContract {

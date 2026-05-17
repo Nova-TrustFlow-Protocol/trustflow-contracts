@@ -6,10 +6,10 @@ use soroban_sdk::token::Client as TokenClient;
 use soroban_sdk::token::StellarAssetClient;
 
 fn create_token_contract<'a>(env: &Env, admin: &Address) -> (TokenClient<'a>, StellarAssetClient<'a>) {
-    let contract_address = env.register_stellar_asset_contract(admin.clone());
+    let sac = env.register_stellar_asset_contract_v2(admin.clone());
     (
-        TokenClient::new(env, &contract_address),
-        StellarAssetClient::new(env, &contract_address),
+        TokenClient::new(env, &sac.address()),
+        StellarAssetClient::new(env, &sac.address()),
     )
 }
 
@@ -27,7 +27,7 @@ fn test_happy_path() {
     let amount: i128 = 1000;
     token_admin_client.mint(&buyer, &amount);
 
-    let contract_id = env.register_contract(None, TrustFlowContract);
+    let contract_id = env.register(TrustFlowContract, ());
     let client = TrustFlowContractClient::new(&env, &contract_id);
 
     // Initialize
